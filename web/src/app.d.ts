@@ -6,6 +6,15 @@ declare global {
 		// interface Locals {}
 		// interface PageData {}
 		// interface Platform {}
+
+		interface Locals {
+			pb: import('$lib/types').PocketBase
+			user: import('$lib/types').UsersRecord | undefined
+		}
+	
+		interface PageData {}
+		interface Error {}
+		interface Platform {}
 	}
 }
 
