@@ -22,6 +22,7 @@ export enum Collections {
 export type UsersRecord = {
 	name?: string
 	avatar?: string
+	verified?: boolean
 }
 
 export type UsersResponse = UsersRecord & BaseRecord
