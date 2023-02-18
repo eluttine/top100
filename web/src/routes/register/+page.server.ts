@@ -1,23 +1,21 @@
-import { generateUsername } from "$lib/utils"
-import { error, redirect, type RequestEvent } from "@sveltejs/kit"
-import { formBody } from "$lib/form-helpers";
+import { generateUsername } from '$lib/utils'
+import { error, redirect, type RequestEvent } from '@sveltejs/kit'
+import type { Actions } from './$types'
 
-export const actions = {
-  register: async (event: RequestEvent) => {
-    const {locals, request} = event
+export const actions: Actions = {
+  register: async ({ locals, request }) => {
+    const data = Object.fromEntries(await request.formData()) as {
+      email: string
+      password: string
+      passwordConfirm: string
+    }
 
-    const formData = await request.formData()
-    const values = formBody(formData)
-
-    const username = generateUsername(values['name'].toString())
-    const email = values['email'].toString()
-    
     try {
-      await locals.pb.collection('users').create({ username, ...values})
-      await locals.pb.collection('users').requestVerification(email)
+      await locals.pb.collection('users').create(data)
+      await locals.pb.collection('users').requestVerification(data.email)
     } catch (err) {
-      console.log('Error: ', err)
-      throw error(500, 'Something went wrong')
+      console.error(err)
+      throw error(500, 'Something went wrong when registering')
     }
 
     throw redirect(303, '/login')

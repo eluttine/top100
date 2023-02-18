@@ -1,6 +1,9 @@
-import PocketBase, { Admin} from 'pocketbase'
-import type { UsersRecord } from './pocketbase-types'
-
-export { PocketBase as PocketBase }
-export { UsersRecord as UsersRecord }
-export { Admin as Admin }
+export interface UsersRecord {
+  id: string
+  avatar: string
+  email: string
+  name: string
+  updated: Date
+  username: string
+  verified: boolean
+}

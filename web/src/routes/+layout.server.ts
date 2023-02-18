@@ -1,15 +1,13 @@
-import type { RequestEvent } from '@sveltejs/kit'
+import type { RequestEvent } from './$types'
 
 export const load = (event: RequestEvent) => {
-  const locals = event.locals
-
-  if (locals.user) {
+  if (event.locals.user) {
     return {
-      user: locals.user
+      user: event.locals.user
     }
   }
 
   return {
-    user: undefined
+    user: null
   }
 }

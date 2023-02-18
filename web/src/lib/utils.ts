@@ -1,8 +1,8 @@
-import { randomBytes } from "crypto"
-import type { UsersRecord } from "./pocketbase-types"
+import { randomBytes } from 'crypto'
+import type { Admin, Record } from 'pocketbase'
 
-export const serializeNonPOJOs = (obj: any): UsersRecord => {
-  return structuredClone(obj)
+export const serializeNonPOJOs = (obj: unknown): Record | Admin | null => {
+  return structuredClone(obj) as Record | Admin | null
 }
 
 export const generateUsername = (name: string) => {

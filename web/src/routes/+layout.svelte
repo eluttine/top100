@@ -1,7 +1,8 @@
 <script lang="ts">
+  import type { UsersRecord } from '$lib/types'
   import '../app.postcss';
 
-  export let data;
+  export let data: { user: UsersRecord | null};
 </script>
 
 <div class="min-h-full">
