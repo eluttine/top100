@@ -1,4 +1,4 @@
-<form action="POST" class="card">
+<form method="POST" class="card">
 	<h1 class="text-2xl mb-8">Rekisteröidy</h1>
 	<div class="form-control gap-2 mb-2">
 		<input type="email" name="email" placeholder="Sähköposti" class="input input-bordered" />
