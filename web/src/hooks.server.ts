@@ -9,7 +9,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   try {
     // get an up-to-date auth store state by verifying and refreshing the loaded auth model (if any)
-    console.log('in handle function')
     if (event.locals.pb.authStore.isValid) {
       event.locals.user = serializeNonPOJOs(event.locals.pb.authStore.model)
     }

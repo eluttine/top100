@@ -1,8 +1,9 @@
 <script lang="ts">
-  import type { UsersRecord } from '$lib/types'
-  import '../app.postcss';
+  import { getImageURL } from '$lib/utils'
+  import '../app.postcss'
+  import type { PageData } from './$types'
 
-  export let data: { user: UsersRecord | null};
+  export let data: PageData
 </script>
 
 <div class="min-h-full">
@@ -17,15 +18,17 @@
           <a href="/register" class="btn btn-secondary">Rekisteröidy</a>
         </div>
       {:else}
-        <div class="dropdown dropdown-end mr-4">
-          <a href="/profile" class="btn btn-primary btn-outline">Profiili</a>
-        </div>
         <div class="dropdown dropdown-end">
           <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
           <!-- svelte-ignore a11y-label-has-associated-control -->
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
-              <img src="https://placeimg.com/80/80/people" alt="User avatar" />
+              <img
+                src={data.user?.avatar
+                  ? getImageURL(data.user?.collectionId, data.user?.id, data.user?.avatar)
+                  : `https://ui-avatars.com/api/?name=${data.user?.name}`}
+                alt="avatarkuva"
+              />
             </div>
           </label>
           <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -50,7 +53,7 @@
     </div>
   </nav>
 
-  <div class="py-10">
+  <div class="py-4">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
       <slot />
     </div>
