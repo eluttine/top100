@@ -1,26 +1,47 @@
 <script lang="ts">
+  import { enhance, applyAction } from '$app/forms'
+  import { invalidateAll } from '$app/navigation'
   import { Icon, Pencil } from 'svelte-hero-icons'
   import { Input } from '$lib/components'
   import type { PageData } from './$types'
   import { getImageURL } from '$lib/utils'
+  import type { ActionResult } from '@sveltejs/kit'
 
   export let data: PageData
+  let loading: boolean
+
+  $: loading = false
 
   const showPreview = (event: Event) => {
     const target = event.target as HTMLInputElement
     const files = target.files
 
     if (files && files.length > 0) {
-      // const src = URL.createObjectURL(files[0])
-      // const preview = document.getElementById('avatar-preview')
-      // if (preview) preview.src = src
-
       const file = files[0]
       const src = URL.createObjectURL(file)
       const preview = document.getElementById('avatar-preview') as
         | (HTMLElement & { src: string })
         | null
       if (preview) preview.src = src
+    }
+  }
+
+  const submitUpdateProfile = () => {
+    loading = true
+
+    return async ({ result }: { result: ActionResult }) => {
+      console.log('result', result)
+      switch (result.type) {
+        case 'success':
+          await invalidateAll()
+          break
+        case 'error':
+          break
+        default:
+          await applyAction(result)
+      }
+
+      loading = false
     }
   }
 </script>
@@ -31,6 +52,7 @@
     method="POST"
     class="flex flex-col space-y-2 w-full"
     enctype="multipart/form-data"
+    use:enhance={submitUpdateProfile}
   >
     <h3 class="text-2xl font-medium">Profiili</h3>
     <div class="form-control w-full max-w-lg">
@@ -61,12 +83,15 @@
         accept="image/*"
         hidden
         on:change={showPreview}
+        disabled={loading}
       />
     </div>
 
-    <Input id="name" label="Name" value={data?.user?.name} />
+    <Input id="name" label="Name" value={data?.user?.name} disabled={loading} />
     <div class="w-full max-w-lg pt-3">
-      <button class="btn btn-primary w-full max-w-lg" type="submit">Päivitä</button>
+      <button class="btn btn-primary w-full max-w-lg" type="submit" disabled={loading}
+        >Päivitä</button
+      >
     </div>
   </form>
 </div>

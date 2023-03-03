@@ -1,6 +1,6 @@
-import { generateUsername } from '$lib/utils'
 import { error, redirect } from '@sveltejs/kit'
 import type { Actions } from './$types'
+import { randomBytes } from 'crypto'
 
 export const actions: Actions = {
   register: async ({ locals, request }) => {
@@ -23,4 +23,9 @@ export const actions: Actions = {
 
     throw redirect(303, '/welcome')
   }
+}
+
+const generateUsername = (name: string) => {
+  const id = randomBytes(2).toString('hex')
+  return `${name.slice(0, 6)}${id}`
 }
