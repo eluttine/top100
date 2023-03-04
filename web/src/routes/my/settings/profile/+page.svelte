@@ -30,7 +30,6 @@
     loading = true
 
     return async ({ result }: { result: ActionResult }) => {
-      console.log('result', result)
       switch (result.type) {
         case 'success':
           await invalidateAll()
