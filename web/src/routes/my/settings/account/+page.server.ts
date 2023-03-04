@@ -21,6 +21,8 @@ export const actions: Actions = {
     }
   },
   updateUsername: async ({ locals, request }) => {
+    if (!locals || !locals.user) return { success: false }
+
     const data = Object.fromEntries(await request.formData()) as {
       username: string
     }
@@ -31,10 +33,10 @@ export const actions: Actions = {
       const pbError = err as { status: number; message: string }
       if (pbError.status === 404) {
         try {
-          if (locals.user?.id) {
+          if (locals.user.id) {
             const { username } = await locals.pb
               .collection('users')
-              .update(locals.user?.id, { username: data.username })
+              .update(locals.user.id, { username: data.username })
 
             locals.user.username = username
 
