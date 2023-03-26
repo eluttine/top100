@@ -5,6 +5,10 @@ export const serializeNonPOJOs = (obj: unknown): Record | Admin | null => {
   return structuredClone(obj) as Record | Admin | null
 }
 
+export function serializeRecordResponse<Type>(obj: Type): Type {
+  return structuredClone(obj) as Type
+}
+
 export const getImageURL = (
   collectionId: string,
   recordId: string,

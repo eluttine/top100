@@ -1,9 +1,9 @@
-import { error } from '@sveltejs/kit'
+import { error, redirect } from '@sveltejs/kit'
 import type { Actions } from './$types'
 
 export const actions: Actions = {
   updateProfile: async ({ request, locals }) => {
-    if (!locals || !locals.user) return
+    if (!locals || !locals.user) throw redirect(303, '/login')
 
     const data = await request.formData()
     const avatar = data.get('avatar') as Blob

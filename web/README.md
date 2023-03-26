@@ -43,5 +43,5 @@ You can preview the production build with `npm run preview`.
 ## Generate types
 
 ```bash
-npx pocketbase-typegen --db ../pb/pb_data/data.db --out src/lib/pocketbase-types.ts
+npx pocketbase-typegen@1.1.7 --db ../pb/pb_data/data.db --out src/lib/pocketbase-types.ts
 ```
