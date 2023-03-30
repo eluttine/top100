@@ -3,6 +3,7 @@
   import { Input } from '$lib/components'
   import { getImageURL } from '$lib/utils'
   import type { BlogsResponse } from '$lib/pocketbase-types'
+  import { enhance } from '$app/forms'
 
   export let data: FormData & { blog: BlogsResponse }
 </script>
@@ -14,6 +15,7 @@
       method="POST"
       class="flex flex-col space-y-2 w-full items-center"
       enctype="multipart/form-data"
+      use:enhance
     >
       <h3 class="text-3xl font-bold">{data.blog.name}</h3>
       <Input id="name" label="Blogin nimi" value={data.blog.name ?? ''} />

@@ -22,6 +22,6 @@ export const actions: Actions = {
       throw error(400, 'Something went wrong when creating a blog')
     }
 
-    throw redirect(303, '/')
+    throw redirect(303, '/my/blogs')
   }
 }

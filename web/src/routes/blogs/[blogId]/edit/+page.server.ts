@@ -50,7 +50,7 @@ export const actions: Actions = {
       throw error(400, 'Something went wrong when updating a blog')
     }
 
-    throw redirect(303, `/blogs/${params.blogId}`)
+    throw redirect(303, '/my/blogs')
   },
   deleteThumbnail: async ({ locals, params }) => {
     try {

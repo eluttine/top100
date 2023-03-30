@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Input } from '$lib/components'
+  import { enhance } from '$app/forms'
 </script>
 
 <div class="flex flex-col w-full h-full p-2">
@@ -9,12 +10,12 @@
       method="POST"
       class="flex flex-col space-y-2 w-full items-center"
       enctype="multipart/form-data"
+      use:enhance
     >
       <h3 class="text-3xl font-bold">Lisää uusi blogi</h3>
       <p class="mt-2 text-lg">Syötä tarvittavat tiedot ja paina lähetä.</p>
       <Input id="name" label="Blogin nimi" />
       <Input id="url" label="Blogin osoite" />
-      <Input id="description" label="Blogin lyhyt kuvaus" />
       <div class="form-control w-full max-w-lg">
         <label for="description" class="label font-medium pb-1">
           <span class="label-text">Blogin kuvaus</span>
